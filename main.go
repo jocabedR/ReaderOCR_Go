@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
 	"strconv"
 	"strings"
 )
@@ -69,9 +70,15 @@ var m9 = [3]string{
 }
 
 func main() {
-	var e1, e2, e3 string
+	if len(os.Args) != 2 {
+		fmt.Print("Incorrect number of arguments.\n")
+		os.Exit(1)
+	}
 
-	content, err := ioutil.ReadFile("accounts.txt")
+	var e1, e2, e3 string
+	fileName := os.Args[1]
+
+	content, err := ioutil.ReadFile(fileName)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -93,6 +100,7 @@ func main() {
 func validateAccount(e1, e2, e3 string) {
 	var c1, c2, c3, account string
 	var flag int = 0
+
 	for n := 0; n < 9; n++ {
 		c1, c2, c3 = "", "", ""
 		for i := 0; i < 3; i++ {
